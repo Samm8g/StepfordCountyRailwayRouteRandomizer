@@ -1,0 +1,81 @@
+/* Basic styles for the Stepford County Railway Route Randomizer */
+
+:root {
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #0096EE;
+    --primary-dark-color: #007ACC;
+}
+
+body.dark-theme {
+    --background-color: #090D2B;
+    --text-color: #f4f4f4;
+    --primary-color: #33B3FF;
+    --primary-dark-color: #0096EE;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1 {
+    color: var(--primary-dark-color);
+}
+
+div {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--primary-dark-color);
+}
+
+#theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: #6c757d; /* A neutral color for the toggle */
+    color: white;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+#theme-toggle:hover {
+    background-color: #5a6268;
+}
+
+p#route-display {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-dark-color);
+    text-align: center;
+    white-space: pre-wrap; /* To preserve newlines from the backend */
+}
+
+input[type="range"] {
+    width: 200px;
+    margin: 0 10px;
+}
