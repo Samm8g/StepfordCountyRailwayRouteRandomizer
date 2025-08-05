@@ -1,102 +1,21 @@
+from flask import Flask, render_template, jsonify, request
 import random
+from stations import stations
 
-print("Stepford County Railway Route Randomizer")
+app = Flask(__name__)
 
-stations = [
-"Willowfield",
-"Hemdon Park",
-"Beechley",
-"Financial Quarter",
-"Stepford Victoria",
-"City Hospital",
-"Stepford Central",
-"Four Ways",
-"Stepford East",
-"Stepford High Street",
-"Whitefield Lido",
-"Stepford UFC",
-"Woodhead Lane",
-"Houghton Rake",
-"Whitefield",
-"St. Helens Bridge",
-"New Harrow",
-"Elsemere Pond",
-"Elsemere Junction",
-"Berrily",
-"East Berrily",
-"Beaulieu Park",
-"Morganstown",
-"Angel Pass",
-"Bodin",
-"Coxly Newtown",
-"Barton",
-"Coxly",
-"West Benton",
-"Faraday Road",
-"Eden Quay",
-"Newry",
-"Newry Harbour",
-"Benton",
-"Port Benton",
-"Morganstown Docks",
-"Whitney Green",
-"Greenslade",
-"Cambridge Street Parkway",
-"Ashlan Park",
-"Connolly",
-"Airport West",
-"James Street",
-"Farleigh",
-"Rosedale Village",
-"Esterfield",
-"Benton Bridge",
-"Airport Parkway",
-"Airport Central",
-"Terminal 1",
-"Terminal 2",
-"Terminal 3",
-"Hampton Hargate",
-"Upper Staploe",
-"Water Newton",
-"Rocket Parade",
-"Leighton Stepford Road",
-"Leighton City",
-"Leighton West",
-"Aslockby",
-"Carnalea Bridge",
-"Rayleigh Bay",
-"Edgemead",
-"Faymere",
-"Westercoast",
-"Millcastle Racecourse",
-"Millcastle",
-"Westwyvern",
-"Starryloch",
-"Northshore",
-"Llyn-by-the-Sea"
-]
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-print("""
-Difficulties:
-1) Easiest
-2) Easy
-3) Normal
-4) Hard
-5) Hardest
-""")
-
-try:
-    diff = int(input("Enter Difficulty (1-5): "))
-    if 1 <= diff <= 5:
-        random.seed(diff * 10)
-        startPoint = random.choice(stations)
+@app.route('/randomize')
+def randomize():
+    difficulty = request.args.get('difficulty', default=3, type=int)
+    startPoint = random.choice(stations)
+    endPoint = random.choice(stations)
+    while endPoint == startPoint:
         endPoint = random.choice(stations)
-        while endPoint == startPoint:
-            endPoint = random.choice(stations)
+    return jsonify({'route': f'Starting station: {startPoint}\nEnding station: {endPoint}'})
 
-        print(f"Starting station: {startPoint}")
-        print(f"Ending station: {endPoint}")
-    else:
-        print("Please enter a number between 1 and 5.")
-except ValueError:
-    print("Invalid input. Please enter a number.")
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
